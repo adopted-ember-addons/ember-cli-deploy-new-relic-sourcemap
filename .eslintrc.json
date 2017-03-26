@@ -1,0 +1,4 @@
+{
+    "extends": "eslint-config-ticketfly-base/rules/nodejs-and-commonjs",
+    "rules": {}
+}

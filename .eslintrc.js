@@ -1,4 +1,0 @@
-{
-    extends: 'ticketfly-base',
-    rules: {}
-}

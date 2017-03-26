@@ -12,7 +12,7 @@ describe('NewRelicClient', function() {
   var FIXTURES_PATH = path.join(process.cwd(), 'tests/fixtures');
 
   before(function() {
-    NewRelic = require('../../../lib/new-relic-client');
+    NewRelic = require('../../../lib/new-relic-client'); // eslint-disable-line global-require
   });
 
   beforeEach(function() {

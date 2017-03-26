@@ -22,7 +22,7 @@ describe('new-relic-sourcemap plugin', function() {
   var DEFAULT_MAP_PATTERN = '**/*.js.map';
 
   before(function() {
-    subject = require('../../index');
+    subject = require('../../index'); // eslint-disable-line global-require
   });
 
   beforeEach(function() {
@@ -111,7 +111,7 @@ describe('new-relic-sourcemap plugin', function() {
         var promise = plugin.upload(context);
 
         return assert.isFulfilled(promise)
-          .then(() => {
+          .then(function() {
             assert.equal(NROptions.sourceMapPattern, '**/*.map');
           });
       });
