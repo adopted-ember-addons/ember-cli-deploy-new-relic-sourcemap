@@ -52,13 +52,28 @@ describe('NewRelicClient', function() {
     it('logs the map and asset paths', function() {
       subject.logSuccessfulPublish({
         asset: 'http://www.hello.com/index.js',
-        map: 'index.map'
+        map: 'index.map',
+        wasUploaded: true
       });
 
       assert.equal(mockUi.messages.length, 1, 'Logs one line');
       assert.equal(
         mockUi.messages[0],
         '- ✔  Published Map: `index.map` for `http://www.hello.com/index.js`'
+      );
+    });
+
+    it('alternative logs for non-uploaded assets', function() {
+      subject.logSuccessfulPublish({
+        asset: 'http://www.hello.com/index.js',
+        map: 'index.map',
+        wasUploaded: false
+      });
+
+      assert.equal(mockUi.messages.length, 1, 'Logs one line');
+      assert.equal(
+        mockUi.messages[0],
+        '- ✔  Published Map: `index.map` for `http://www.hello.com/index.js` (Using previously published version)'
       );
     });
   });
@@ -148,9 +163,37 @@ describe('NewRelicClient', function() {
 
           assert.deepEqual(result, {
             asset: DEFAULT_PREFIX + 'test-a.js',
-            map: 'test-dir/test-a.map'
+            map: 'test-dir/test-a.map',
+            wasUploaded: true
           });
         });
+    });
+
+    it('will handle an already published source map (Conflict exception)', function() {
+      nrClient.publishSourcemap = function(params, cb) {
+        cb(new Error('Conflict'));
+      };
+
+      var promise = subject.publishSourcemap('test-dir', 'test-a.js', 'test-a.map');
+
+      return assert.isFulfilled(promise)
+        .then(function(result) {
+          assert.deepEqual(result, {
+            asset: DEFAULT_PREFIX + 'test-a.js',
+            map: 'test-dir/test-a.map',
+            wasUploaded: false
+          });
+        });
+    });
+
+    it('will reject on other unknown errors', function() {
+      nrClient.publishSourcemap = function(params, cb) {
+        cb(new Error('Some other error'));
+      };
+
+      var promise = subject.publishSourcemap('test-dir', 'test-a.js', 'test-a.map');
+
+      return assert.isRejected(promise);
     });
   });
 
@@ -174,15 +217,18 @@ describe('NewRelicClient', function() {
           assert.deepEqual(result, [
             {
               asset: DEFAULT_PREFIX + 'assets/file-c.js',
-              map: path.join(distDir, 'assets/file-c.map')
+              map: path.join(distDir, 'assets/file-c.map'),
+              wasUploaded: true
             },
             {
               asset: DEFAULT_PREFIX + 'file-a.js',
-              map: path.join(distDir, 'file-a.map')
+              map: path.join(distDir, 'file-a.map'),
+              wasUploaded: true
             },
             {
               asset: DEFAULT_PREFIX + 'file-b-s8d7asfdb983.js',
-              map: path.join(distDir, 'file-b.map')
+              map: path.join(distDir, 'file-b.map'),
+              wasUploaded: true
             }
           ]);
         });
