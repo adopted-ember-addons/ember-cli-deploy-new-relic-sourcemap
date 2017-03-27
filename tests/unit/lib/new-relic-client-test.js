@@ -17,7 +17,7 @@ describe('NewRelicClient', function() {
 
   beforeEach(function() {
     nrClient = {
-      publishSourceMap: function(params, cb) {
+      publishSourcemap: function(params, cb) {
         publishParams = params;
         cb();
       }
@@ -105,6 +105,14 @@ describe('NewRelicClient', function() {
         subject.getMatchingAssetForMap(distDir, 'all-alone.map');
       }, /The asset for the map `all-alone.map` could not be found/);
     });
+
+    it('supports files that have the same prefix', function() {
+      var resultA = subject.getMatchingAssetForMap(distDir, 'test-a.map');
+      var resultB = subject.getMatchingAssetForMap(distDir, 'test-a-b.map');
+
+      assert.equal(resultA, 'test-a-asd89b987a.js');
+      assert.equal(resultB, 'test-a-b-lkj5443oi.js');
+    });
   });
 
   describe('#getMatchingAssetsAndMaps', function() {
@@ -125,9 +133,9 @@ describe('NewRelicClient', function() {
     });
   });
 
-  describe('#publishSourceMap', function() {
+  describe('#publishSourcemap', function() {
     it('will publish sourcemap with provided config', function() {
-      var promise = subject.publishSourceMap('test-dir', 'test-a.js', 'test-a.map');
+      var promise = subject.publishSourcemap('test-dir', 'test-a.js', 'test-a.map');
 
       return assert.isFulfilled(promise)
         .then(function(result) {
@@ -146,7 +154,7 @@ describe('NewRelicClient', function() {
     });
   });
 
-  describe('#publishSourceMaps', function() {
+  describe('#publishSourcemaps', function() {
     var distDir;
 
     beforeEach(function() {
@@ -154,7 +162,7 @@ describe('NewRelicClient', function() {
     });
 
     it('will publish all matching sourcemaps', function() {
-      var promise = subject.publishSourceMaps({
+      var promise = subject.publishSourcemaps({
         sourceMapPattern: '**/*.map',
         distDir: distDir
       });

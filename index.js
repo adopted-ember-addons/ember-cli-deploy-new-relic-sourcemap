@@ -14,7 +14,7 @@ module.exports = {
       NewRelic: options.NewRelic || NewRelic,
 
       defaultConfig: {
-        sourceMapPattern: '**/*.js.map',
+        sourceMapPattern: '**/*.map',
         distDir: function(context) {
           return context.distDir;
         }

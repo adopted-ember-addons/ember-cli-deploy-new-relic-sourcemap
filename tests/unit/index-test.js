@@ -19,7 +19,7 @@ describe('new-relic-sourcemap plugin', function() {
   var DEFAULT_PREFIX = 'https://www.cloud-place.com/';
   var DEFAULT_APP_ID = '1234';
   var DEFAULT_NR_KEY = '5678';
-  var DEFAULT_MAP_PATTERN = '**/*.js.map';
+  var DEFAULT_MAP_PATTERN = '**/*.map';
 
   before(function() {
     subject = require('../../index'); // eslint-disable-line global-require
