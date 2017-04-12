@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-deploy-new-relic-sourcemap",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A deploy plugin to upload sourcemaps to New Relic. ",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,7 @@
   ],
   "author": "",
   "license": "MIT",
+  "repository": "spencer516/ember-cli-deploy-new-relic-sourcemap",
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
