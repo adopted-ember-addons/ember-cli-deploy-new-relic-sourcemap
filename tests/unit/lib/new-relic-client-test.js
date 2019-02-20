@@ -85,6 +85,12 @@ describe('NewRelicClient', function() {
       distDir = path.join(FIXTURES_PATH, 'test-1-dist');
     });
 
+    it('finds a similarly named ember-auto-import generated non-fingerprinted asset', function() {
+      var result = subject.getMatchingAssetForMap(distDir, 'assets/chunk.e5b207d0c7d3c14bcd11.map');
+
+      assert.equal(result, 'assets/chunk.e5b207d0c7d3c14bcd11.js')
+    })
+
     it('finds a similarly named non-fingerprinted asset', function() {
       var result = subject.getMatchingAssetForMap(distDir, 'file-a.map');
 
@@ -101,12 +107,6 @@ describe('NewRelicClient', function() {
       var result = subject.getMatchingAssetForMap(distDir, 'assets/file-c.map');
 
       assert.equal(result, 'assets/file-c.js');
-    });
-
-    it('finds similarly named files if map contains asset extension', function() {
-      var result = subject.getMatchingAssetForMap(distDir, 'file-d.js.map');
-
-      assert.equal(result, 'file-d.js');
     });
 
     it('throws an error on an ambiguous asset name', function() {
