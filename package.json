@@ -12,7 +12,7 @@
   ],
   "author": "",
   "license": "MIT",
-  "repository": "spencer516/ember-cli-deploy-new-relic-sourcemap",
+  "repository": "adopted-ember-addons/ember-cli-deploy-new-relic-sourcemap",
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
