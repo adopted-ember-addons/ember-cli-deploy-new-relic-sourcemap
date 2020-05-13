@@ -10,7 +10,7 @@
     "ember-addon",
     "ember-cli-deploy-plugin"
   ],
-  "author": "",
+  "author": "jdberrocal1",
   "license": "MIT",
   "repository": "adopted-ember-addons/ember-cli-deploy-new-relic-sourcemap",
   "devDependencies": {
