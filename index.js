@@ -28,6 +28,7 @@ module.exports = {
         var nrAdminKey        = this.readConfig('nrAdminKey');
         var distDir           = this.readConfig('distDir');
         var prefix            = this.readConfig('prefix');
+        var ignoreFingerprint = this.readConfig('ignoreFingerprint');
 
         this.log('Preparing to upload source maps to New Relic', { verbose: true });
 
@@ -35,7 +36,8 @@ module.exports = {
           plugin: this,
           applicationId: applicationId,
           nrAdminKey: nrAdminKey,
-          prefix: prefix
+          prefix: prefix,
+          ignoreFingerprint: ignoreFingerprint
         });
 
         return nrClient.publishSourcemaps({

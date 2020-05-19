@@ -29,7 +29,10 @@ ENV['new-relic-sourcemap'] = {
   applicationId: '12345678',
 
   // Admin Key (not application-specific)
-  nrAdminKey: 'a98b7a98notd7reallyasda9s8fkey7am'
+  nrAdminKey: 'a98b7a98notd7reallyasda9s8fkey7am',
+
+  // flag to ignore fingerprint on files
+  ignoreFingerprint: true
 };
 ```
 
