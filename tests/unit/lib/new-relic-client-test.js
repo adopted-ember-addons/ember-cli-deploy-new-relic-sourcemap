@@ -130,6 +130,40 @@ describe('NewRelicClient', function() {
     });
   });
 
+  describe('#getMatchingAssetForMap with notmatching fingerprint', function() {
+    var distDir;
+
+    beforeEach(function() {
+      distDir = path.join(FIXTURES_PATH, 'test-3-dist');
+      subject.ignoreFingerprint = true;
+      subject.filterRegex = /^[-a-zA-Z0-9]+$/
+    });
+
+    it('finds a similarly named ember-auto-import generated non-fingerprinted asset', function() {
+      var result = subject.getMatchingAssetForMap(distDir, 'assets/chunk-e123207d0c7d3c14bcqwe.map');
+
+      assert.equal(result, 'assets/chunk-e5b207d0c7d3c14bcd11.js')
+    });
+
+    it('finds a similarly named asset in a nested folder', function() {
+      var result = subject.getMatchingAssetForMap(distDir, 'assets/file-c.map');
+
+      assert.equal(result, 'assets/file-c.js');
+    });
+
+    it('throws an error on an ambiguous asset name', function() {
+      assert.throws(function() {
+        subject.getMatchingAssetForMap(distDir, 'ambiguous.map');
+      }, /The asset for the map `ambiguous.map` could not be matched because there were multiple/);
+    });
+
+    it('throws an error on no matching assets', function() {
+      assert.throws(function() {
+        subject.getMatchingAssetForMap(distDir, 'all-alone.map');
+      }, /The asset for the map `all-alone.map` could not be found/);
+    });
+  });
+
   describe('#getMatchingAssetsAndMaps', function() {
     var distDir;
 

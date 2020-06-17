@@ -26,10 +26,16 @@ ENV['new-relic-sourcemap'] = {
   prefix: 'https://your.awesome.site',
 
   // Application ID Provided by New Relic
-  applicationID: '12345678',
+  applicationId: '12345678',
 
   // Admin Key (not application-specific)
-  nrAdminKey: 'a98b7a98notd7reallyasda9s8fkey7am'
+  nrAdminKey: 'a98b7a98notd7reallyasda9s8fkey7am',
+
+  // flag to ignore fingerprint on files, false by default
+  ignoreFingerprint: true,
+
+  // flag to ignore fingerprint on files, default /^-[a-zA-Z0-9]+$/
+  filterRegex: /^[-a-zA-Z0-9]+$/
 };
 ```
 

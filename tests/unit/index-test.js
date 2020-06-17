@@ -65,7 +65,9 @@ describe('new-relic-sourcemap plugin', function() {
         'new-relic-sourcemap': {
           prefix: DEFAULT_PREFIX,
           applicationId: DEFAULT_APP_ID,
-          nrAdminKey: DEFAULT_NR_KEY
+          nrAdminKey: DEFAULT_NR_KEY,
+          ignoreFingerprint: false,
+          filterRegex: /^-[a-zA-Z0-9]+$/
         }
       }
     };
@@ -95,7 +97,9 @@ describe('new-relic-sourcemap plugin', function() {
               plugin: plugin,
               applicationId: DEFAULT_APP_ID,
               prefix: DEFAULT_PREFIX,
-              nrAdminKey: DEFAULT_NR_KEY
+              nrAdminKey: DEFAULT_NR_KEY,
+              ignoreFingerprint: false,
+              filterRegex: /^-[a-zA-Z0-9]+$/
             });
 
             assert.deepEqual(NROptions, {
